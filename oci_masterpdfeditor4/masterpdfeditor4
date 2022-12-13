@@ -1,0 +1,19 @@
+#!/bin/sh
+if [ -z "$(docker images | grep masterpdfeditor4)" ]; then
+  echo 'Image does not exist. Please build an image from the Dockerfile.'
+elif [ -z "$1" ]; then
+  # No arguments provided.
+  docker run -it --rm \
+  --net=host \
+  -e DISPLAY="${DISPLAY}" \
+  -v "${HOME}/.Xauthority:/home/user/.Xauthority:ro" \
+  masterpdfeditor4
+else
+  # No arguments provided.
+  docker run -it --rm \
+  --net=host \
+  -e DISPLAY="${DISPLAY}" \
+  -v "${HOME}/.Xauthority:/home/user/.Xauthority:ro" \
+  -v "${HOME}/$1:/home/user/$1:ro" \
+  masterpdfeditor4
+fi
